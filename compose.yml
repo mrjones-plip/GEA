@@ -1,0 +1,11 @@
+services:
+  gea:
+    image: "python:3-alpine3.22"
+    working_dir: /gea
+    volumes:
+      - ./:/gea
+    entrypoint: [ "/bin/sh","-c" ]
+    command:
+      - |
+        pip install dotenv python-whois gotify
+        python main.py
