@@ -3,7 +3,7 @@
 
 Gotify (Domain) Expiration Alerter (GEA) is a single function docker service that checks if a domain's registration expires in less than N days. If yes, an alert is sent to your Gotify instance.
 
-There's number of [existing project](#related-projects) that might meet your needs! This project good if you want to run it in docker and only have 1 domain to monitor (likely will add multi-domain support soon!) and use Gotify for alerts.
+There's number of [existing project](#related-projects) that might meet your needs! This project good if you want to run it in docker, only have a few domains to monitor and use Gotify for alerts.
 
 ## Prerequisites 
 
@@ -15,23 +15,24 @@ There's number of [existing project](#related-projects) that might meet your nee
 This project is really just glue between a few existing solutions. By leveraging actively developed libraries around the `whois` service, hopefully it will work for a large collection of domains:
 
 * Alerts: [Gotify](https://gotify.net/)
-* Expiration: [Python `whois` library](https://github.com/richardpenman/whois) 
+* Expiration from `whois`: [Python `whois` library](https://github.com/richardpenman/whois) 
 * Infra: [Docker Compose](https://docs.docker.com/compose/)
 * OS: [Python 3 Alpine 3.21 image](https://hub.docker.com/layers/library/python/3-alpine3.22/images/sha256-778926a6529b5f41161c65f0b4cbb0cabaab8d597051d3504b3b207f21a0a58e) (only 16MB \o/)
 
 ## Setup
 
-1. Check out this repo: `git clone https://github.com/mrjones-pliop/UKDEA.git`
+1. Check out this repo: `git clone https://github.com/mrjones-pliop/GEA.git`
 2. Copy the `exmple.env` to `.env`
 3. Log into your Gotify instance and [create a token](https://gotify.net/docs/pushmsg) 
-4. Edit `.env` to have your Gotify URL, Gotify token and domain you want to monitor:
+4. Edit `.env` to have your Gotify URL, Gotify token and domain(s) you want to monitor:
     ```shell
    GOTIFY_URL="https://gotify.example.com"
    GOTIFY_TOKEN="https://gotify.example.com"
-   MONITOR_DOMAIN_001="domain.com"
+   MONITOR_DOMAINS="github.com,plip.com"
+   WARN_DAYS=10
    ```
 5. Start docker to start domain monitoring: `docker compose up -d` 
-6. You should get a confirmation alert that monitoring is set up and when the domain will expire so you know everything is working
+6. You should get a confirmation alert that monitoring is set up and when the domain(s) will expire so you know everything is working
 
 ## Related projects
 

@@ -8,16 +8,21 @@ import whois
 from datetime import datetime
 
 
-load_dotenv()
-GOTIFY_URL = os.getenv("GOTIFY_URL")
-GOTIFY_TOKEN = os.getenv("GOTIFY_TOKEN")
-MONITOR_DOMAIN_001 = os.getenv("MONITOR_DOMAIN_001")
+def get_domains():
+    MONITOR_DOMAINS = os.getenv("MONITOR_DOMAINS")
+    domain_list = MONITOR_DOMAINS.split(",")
+    domains = {}
+    for domain in domain_list:
+        domains[domain] = {}
+        domains[domain]["days"] = 0
+    return domains
 
 
 def send_alert(message, title):
+    gotify_url = os.getenv("GOTIFY_URL")
     gotify = Gotify(
-        base_url = GOTIFY_URL,
-        app_token= GOTIFY_TOKEN,
+        base_url = gotify_url,
+        app_token = os.getenv("GOTIFY_TOKEN"),
     )
     try:
         result = gotify.create_message(
@@ -25,48 +30,56 @@ def send_alert(message, title):
             title=f"GEA: {title}",
             priority=2,
         )
-        print(f"Gotify alert sent to {GOTIFY_URL}")
+        print(f"INFO: Gotify alert sent to {gotify_url}")
         return True
     except Exception as e:
-        print(f"Failed to call Gotify to: {GOTIFY_URL}.  Error is: {e}")
+        print(f"WARNING: Error in send_alert() call. Failed to call Gotify at: {gotify_url}.  Error is: {e}")
         return False
 
-def get_domain_expires_days(domain):
+
+def expires_days(domain):
     result = dict(date = datetime.now(), days = 0)
 
     try:
-        print(f"Querying for domain {domain}")
+        print(f"INFO: Querying for domain {domain}")
         result["date"] = whois.whois(domain).expiration_date
     except Exception as e:
-        print(f"Failed to call whois for: {domain}.  Error is: {e}")
+        print(f"WARNING: Failed to call whois for: {domain}.  Error is: {e}")
         return False
 
     now = datetime.now()
-    expires = datetime.strptime(str(result["date"]),"%Y-%m-%d %H:%M:%S")
-    date_dif = expires - now
-    result["days"] = date_dif.days
-    return result
+    try:
+        expires = datetime.strptime(str(result["date"]),"%Y-%m-%d %H:%M:%S")
+        date_dif = expires - now
+        result["days"] = date_dif.days
+        print(f"INFO: Domain {domain} expires in {date_dif.days} days on {result['date']}")
+        return result
+    except Exception as e:
+        print(f"WARNING: Error in expires_days() call. Failed getting expiration date for: {domain}.  Error is: {e}")
+        return False
 
 
 def main():
-    SLEEP = 10  # hours
-    DAYS = 10
+    load_dotenv()
+    warn_days = int(os.getenv("WARN_DAYS"))
+    sleep_time = 12  # hours
+    domains = get_domains()
 
-    print(f"Starting GEA...")
-    expires = get_domain_expires_days(MONITOR_DOMAIN_001)
-    send_alert(
-        f"Now monitoring domain {MONITOR_DOMAIN_001} which expires on {expires['days']} ;)",
-        "GEA started"
-    )
+    print(f"INFO: Starting GEA with {len(domains)} domains: {', '.join(domains)}")
 
     while True:
-        if DAYS > expires['days']:
-            send_alert(
-                f"NOTICE: {MONITOR_DOMAIN_001} is expiring in {expires['days']} days",
-                f"{MONITOR_DOMAIN_001} Expiring"
-            )
-        print(f"Sleeping for {SLEEP} hours...")
-        sleep(SLEEP * 60 * 60 )
-        expires = get_domain_expires_days(MONITOR_DOMAIN_001)
+        for domain in get_domains():
+            domains[domain] = expires_days(domain)
+            if domains[domain] and warn_days > domains[domain]["days"]:
+                send_alert(
+                    f"NOTICE: {domain} is expiring in {domains[domain]['days']} days",
+                    f"{domain} Expiring"
+                )
+            elif domains[domain]:
+                print(f"INFO: {domain} is not expiring for {domains[domain]['days']} days")
+
+        print(f"INFO: Sleeping for {sleep_time} hours...")
+        sleep(sleep_time * 60 * 60 )
+
 
 main()
