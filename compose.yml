@@ -8,4 +8,4 @@ services:
     command:
       - |
         pip install dotenv python-whois gotify
-        python main.py
+        python -u main.py
