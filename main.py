@@ -115,6 +115,8 @@ def web_server():
     print(f"INFO: Starting GEA webserver with {len(domains)} domains: {', '.join(domains)}")
 
     try:
+        # todo: exposes .env file with gotify API key. secure by limiting to just `./web` directory
+        # todo: PORT is sometimes still in use on Nth start. stale process? forked process?
         Handler = http.server.SimpleHTTPRequestHandler
         with socketserver.TCPServer(("", PORT), Handler) as httpd:
             print("INFO: serving at port", PORT)
