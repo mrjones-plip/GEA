@@ -3,3 +3,4 @@ venv
 .venv
 .env
 __pycache__
+web/*.json

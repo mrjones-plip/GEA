@@ -103,7 +103,7 @@ def cache_domain_results(info):
     info["cached_date"] = str(datetime.now())
     if "date" in info:
         info["date"] = str(info["date"])
-    path = "./web/" + info['domain']
+    path = "./web/" + info['domain'] + ".json"
     string = json.dumps(info)
     with open(path, "w") as text_file:
         text_file.write(string)
