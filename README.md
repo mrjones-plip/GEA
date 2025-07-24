@@ -5,7 +5,7 @@ Gotify (Domain) Expiration Alerter (GEA) is a single function docker service tha
 
 ![gea.png](gea.png)
 
-Additionally, it exposes a web server that servers JSON status of any domain being monitored.  This is good to use with projects like [Uptime Kuma](https://uptime.kuma.pet/) which can send alerts based on JSON values in HTTP `GET` calls:
+Additionally, it exposes a web server that serves JSON statuses of any domain being monitored.  This is good to use with projects like [Uptime Kuma](https://uptime.kuma.pet/) which can send [alerts based on JSON values](https://github.com/louislam/uptime-kuma/pull/3253) in HTTP `GET` calls:
 
 ![GET.png](GET.png)
 
