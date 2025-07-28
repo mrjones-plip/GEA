@@ -1,15 +1,24 @@
 #!/usr/local/bin/python
-import json
-from time import sleep
 from dotenv import load_dotenv
 from gotify import Gotify
 from datetime import datetime
 import os
 import whois
 import threading
-import http.server
-import socketserver
 import json
+
+
+# todo - I don't think this will ever return false?
+def check_config():
+    try:
+        os.getenv("MONITOR_DOMAINS")
+        os.getenv("SEND_ALERTS")
+        os.getenv("WARN_DAYS")
+        os.getenv("GOTIFY_URL")
+        return True
+    except Exception as e:
+        print(f"WARNING: Error in check_config() call. Check your .env file is correct.  Error is: {e}")
+        return False
 
 
 def get_domains():
@@ -109,28 +118,12 @@ def cache_domain_results(info):
         text_file.write(string)
 
 
-def web_server():
-    PORT = int(os.getenv("PORT"))
-    domains = get_domains()
-    print(f"INFO: Starting GEA webserver with {len(domains)} domains: {', '.join(domains)}")
-
-    try:
-        # todo: exposes .env file with gotify API key. secure by limiting to just `./web` directory
-        # todo: PORT is sometimes still in use on Nth start. stale process? forked process?
-        Handler = http.server.SimpleHTTPRequestHandler
-        with socketserver.TCPServer(("", PORT), Handler) as httpd:
-            print("INFO: serving at port", PORT)
-            httpd.serve_forever()
-    except Exception as e:
-        print(f"WARNING: Error in web_server() call 1. Failed to start webserver.  Error is: {e}")
-        return False
-
-
 def main():
-    load_dotenv()
-    first = True
-    check_domains_every_n_hours(first)
-    web_server()
+    ready = check_config()
+    if ready:
+        load_dotenv()
+        first = True
+        check_domains_every_n_hours(first)
 
 
 main()
