@@ -4,8 +4,8 @@
 Gotify (Domain) Expiration Alerter (GEA) is a docker service that checks if a domain's registration expires in less than N days. If yes, an alert is sent to your Gotify instance.
 
 Additionally, it exposes a web server that serves JSON statuses of any domain being monitored.  This is handy for:
-* [Uptime Kuma](https://uptime.kuma.pet/): monitor and alert via existing means 
-* [Home Assistant](https://www.home-assistant.io/): show days until your domain(s)
+* [Uptime Kuma](https://uptime.kuma.pet/): monitor and alert via existing means when your domain(s) expire 
+* [Home Assistant](https://www.home-assistant.io/): show days until your domain(s) expire
 
 Here's what it looks like to get alerts acknowledging GEA is started in Gotify (top) and showing the logs in Docker (bottom):
 
