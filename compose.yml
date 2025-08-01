@@ -1,5 +1,6 @@
 services:
   gea-alert:
+    restart: unless-stopped
     image: "python:3-alpine3.22"
     working_dir: /gea
     volumes:
@@ -11,6 +12,7 @@ services:
         python -u main.py
 
   gea-web:
+    restart: unless-stopped
     image: "busybox"
     working_dir: /gea
     volumes:
