@@ -33,7 +33,7 @@ Continue on if you want to run a small docker service, only have a few domains t
 1. Check out this repo: `git clone https://github.com/mrjones-pliop/GEA.git`
 2. Copy the `exmple.env` to `.env`
 3. Log into your Gotify instance and [create a token](https://gotify.net/docs/pushmsg) 
-4. Edit `.env` to have your Gotify URL, Gotify token and domain(s) you want to monitor:
+4. Edit `.env` to have your Gotify URL, Gotify token and domain(s) you want to monitor. Be sure that you update `GOTIFY_URL` be your Gotify URL and that it is accessible from your docker instance.  :
     ```shell
    GOTIFY_URL="http://172.17.0.1:8000"
    GOTIFY_TOKEN="A.T9cF1UxmSU6J9"
