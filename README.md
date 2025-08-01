@@ -17,12 +17,16 @@ There's number of [existing projects](#related-projects) that might meet your ne
 
 Continue on if you want to run a small docker service, only have a few domains to monitor and use Gotify for alerts (and possibly HA and/or Uptime Kuma).
 
-## Prerequisites 
+
+## Install
+
+### Prerequisites 
 
 * Domain you want to monitor the expiration of
 * [Gotify](https://gotify.net/) instance
+* [Docker](https://docs.docker.com/) installed
 
-## Setup
+### Install
 
 1. Check out this repo: `git clone https://github.com/mrjones-pliop/GEA.git`
 2. Copy the `exmple.env` to `.env`
@@ -41,7 +45,7 @@ Continue on if you want to run a small docker service, only have a few domains t
 
 ### Web server
 
-The web server starts on port `9080` by default.  There's a file per domain being followed.  If you were monitoring `github.com` you would add on `.json` to see the results.  Here's a call of `curl` piped to `jq` to show the results:
+After you've called `docker compose up -d`, a web server starts on port `9080`.  There's a file per domain being followed.  If you were monitoring `github.com` you would add on `.json` to see the results.  Here's a call of `curl` piped to `jq` to show the results:
 
 ```commandline
 curl -qs http://172.17.0.1:9080/github.com.json |jq
