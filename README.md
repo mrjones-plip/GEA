@@ -44,7 +44,7 @@ Continue on if you want to run a small docker service, only have a few domains t
    PORT=9080
    ```
 5. Start docker to begin domain monitoring: `docker compose up -d` 
-6. You should get a confirmation alert that monitoring is set up and when the domain(s) will expire so you know everything is working. As well, on port `9080` of your docker host, there is now a [web server](?tab=readme-ov-file#web-server) running.
+6. You should get a confirmation alert that monitoring is set up and when the domain(s) will expire so you know everything is working. As well, on port `9080` of your docker host, there is now a [web server](#web-server) running.
 
 #### Without a Gofity Instance
 
@@ -61,7 +61,7 @@ Continue on if you want to run a small docker service, only have a few domains t
    PORT=9080
    ```
 5. Start docker to begin domain monitoring: `docker compose up -d` 
-6. On port `9080` of your docker host, there is now a [web server](?tab=readme-ov-file#web-server) running.
+6. On port `9080` of your docker host, there is now a [web server](#web-server) running.
 
 ### Web server
 
