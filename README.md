@@ -17,7 +17,7 @@ Maybe!
 
 There's number of [existing projects](#related-projects) that might meet your needs. Check there first.
 
-Continue on if you want to run a small docker service, only have a few domains to monitor and use Gotify for alerts (and possibly HA and/or Uptime Kuma).
+Continue on if you want to run a small docker service, only have a few domains to monitor and use Gotify for alerts (and possibly Home Assistant and/or Uptime Kuma).
 
 
 ## Install
