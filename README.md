@@ -51,11 +51,10 @@ Continue on if you want to run a small docker service, only have a few domains t
 
 1. Check out this repo: `git clone https://github.com/mrjones-pliop/GEA.git`
 2. Copy the `exmple.env` to `.env`
-4. Edit `.env` to have your Gotify URL, Gotify token and domain(s) you want to monitor. Be sure that delete the  `SEND_ALERTS` so that no Gotify calls are made:
+4. Edit `.env` to have your domain(s) you want to monitor. Be sure to delete the  `SEND_ALERTS` line so that no Gotify calls are made. You can leave `GOTIFY_URL`, `GOTIFY_TOKEN` and `WARN_DAYS` as is - they will be unused:
     ```shell
    GOTIFY_URL="http://172.17.0.1:8000"
    GOTIFY_TOKEN="A.T9cF1UxmSU6J9"
-   SEND_ALERTS=Yes-please! # delete this line to not send alerts
    MONITOR_DOMAINS="github.com, plip.com"
    WARN_DAYS=10
    PORT=9080
