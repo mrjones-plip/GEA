@@ -25,11 +25,12 @@ Continue on if you want to run a small docker service, only have a few domains t
 ### Prerequisites 
 
 * Domain you want to monitor the expiration of
-* [Gotify](https://gotify.net/) instance
+* (optional) [Gotify](https://gotify.net/) instance
 * [Docker](https://docs.docker.com/) installed
 
 ### Install
 
+#### With a Gotify Instance:
 1. Check out this repo: `git clone https://github.com/mrjones-pliop/GEA.git`
 2. Copy the `exmple.env` to `.env`
 3. Log into your Gotify instance and [create a token](https://gotify.net/docs/pushmsg) 
@@ -40,10 +41,27 @@ Continue on if you want to run a small docker service, only have a few domains t
    SEND_ALERTS=Yes-please! # delete this line to not send alerts
    MONITOR_DOMAINS="github.com, plip.com"
    WARN_DAYS=10
-   PORT=8000
+   PORT=9080
    ```
 5. Start docker to begin domain monitoring: `docker compose up -d` 
-6. You should get a confirmation alert that monitoring is set up and when the domain(s) will expire so you know everything is working
+6. You should get a confirmation alert that monitoring is set up and when the domain(s) will expire so you know everything is working. As well, on port `9080` of your docker host, there is now a [web server](?tab=readme-ov-file#web-server) running.
+
+#### Without a Gofity Instance
+
+
+1. Check out this repo: `git clone https://github.com/mrjones-pliop/GEA.git`
+2. Copy the `exmple.env` to `.env`
+4. Edit `.env` to have your Gotify URL, Gotify token and domain(s) you want to monitor. Be sure that delete the  `SEND_ALERTS` so that no Gotify calls are made:
+    ```shell
+   GOTIFY_URL="http://172.17.0.1:8000"
+   GOTIFY_TOKEN="A.T9cF1UxmSU6J9"
+   SEND_ALERTS=Yes-please! # delete this line to not send alerts
+   MONITOR_DOMAINS="github.com, plip.com"
+   WARN_DAYS=10
+   PORT=9080
+   ```
+5. Start docker to begin domain monitoring: `docker compose up -d` 
+6. On port `9080` of your docker host, there is now a [web server](?tab=readme-ov-file#web-server) running.
 
 ### Web server
 
