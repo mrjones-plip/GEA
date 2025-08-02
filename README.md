@@ -117,9 +117,9 @@ If you run [Uptime Kuma](https://uptime.kuma.pet/) you can monitor and alert on 
 
 This done using the [JSON values](https://github.com/louislam/uptime-kuma/pull/3253) feature.  When adding a new monitor, I used these values:
   * Monitor Type: `HTTP(s) Json Query`
-  * URL: `http://172.17.0.1:9080/github.com.json` - Be sure to use the URL or IP for where your GEA is running via docker.
+  * URL: `http://172.17.0.1:9080/github.com.json` - Be sure to use the URL or IP for where your GEA is running via docker. As well, specify the domain you want to alert on - `github.com` is shown here. 
   * Json Query: `days.$number()<10` - Set the `10` to be the days remaining in the domain before it sets an alert.
-  * Expected Value: "false"
+  * Expected Value: `false`
 
 All other values are OK at their defaults.
 
