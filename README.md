@@ -65,10 +65,10 @@ Continue on if you want to run a small docker service, only have a few domains t
 
 ### Web server
 
-After you've called `docker compose up -d`, a web server starts on port `9080`.  There's a file per domain being followed.  If you were monitoring `github.com` you would add on `.json` to see the results.  Here's a call of `curl` piped to `jq` to show the results:
+After you've called `docker compose up -d`, a web server starts on port `9080`.  There's a file per domain in `MONITOR_DOMAINS`.  If you were monitoring `github.com` you would add on `.json` to see the results.  Here's a call of `curl` piped to `jq` to show the results:
 
 ```commandline
-curl -qs http://172.17.0.1:9080/github.com.json |jq
+curl -qs http://172.17.0.1:9080/github.com.json | jq
 ```
 
 The output is:
