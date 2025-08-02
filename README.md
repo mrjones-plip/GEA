@@ -137,7 +137,7 @@ This project is really just glue between a few existing solutions. By leveraging
 
 My partner suggests, "A whole Docker app?!  What about just setting a yearly [Task reminder in Google](https://support.google.com/tasks/answer/7675772?hl=en) - that'll only take 30 seconds to do." This may be the simplest way forward!
 
-Otherwise, I was unable to find an existing docker based service to easily send an alert to Gotify when a domain is expiring.  There's a Go based project "[domain-monitor](https://github.com/nwesterhausen/domain-monitor)" that does 100% of everything I was looking for, but sends email alerts instead of Gotify alerts.  If you want email alerts, I suspect this would be the way to go. It looks be very mature having started in 2020 and is on version `1.24` ad of now (Jul 2025). I don't know Go :/
+Otherwise, I was unable to find an existing docker based service to easily send an alert to Gotify when a domain is expiring.  There's a Go based project "[domain-monitor](https://github.com/nwesterhausen/domain-monitor)" that does 100% of everything I was looking for, but sends email alerts instead of Gotify alerts.  If you want email alerts, I suspect this would be the way to go. It looks be very mature having started in 2020 and is on version `1.24` as of now (Jul 2025). I don't know Go, so not easy for me to extend :/
 
 Another good idea might to use [Nagios](https://support.nagios.com/forum/viewtopic.php?t=61028) - a gold standard in monitoring.
 
